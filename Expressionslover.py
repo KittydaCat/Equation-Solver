@@ -31,7 +31,7 @@ def equationparser(equation):
             pequation.append(equation[0])
 
         # if the first char is a parenthethes
-        if equation[0] = '(':
+        if equation[0] == '(':
 
             # add the num to the parsed equation
             pequation.append(num)
@@ -54,6 +54,10 @@ def equationparser(equation):
             pequation.append(equationparser(equation[1:x]))
             equation = equation[n:-1]
 
-if __name__ == '__name__':
+        equation = equation[1:-1]
 
-    print(equationparser(input()))
+        return pequation
+
+if __name__ == '__main__':
+
+    print(equationparser(input('hello')))
