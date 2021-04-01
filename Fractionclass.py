@@ -16,7 +16,12 @@ class Fraction:
 
     def __repr__(self):
         # returns the fraction in simplified form "1 1/2"
-        return str(self.numer//self.denom) + ' ' + str(self.numer % self.denom)+'/'+str(self.denom)
+
+        if self.numer >= 0:
+            return str(self.numer//self.denom) + ' ' + str(self.numer % self.denom)+'/'+str(self.denom)
+
+        if self.numer < 0:
+            return '-' + str(abs(self.numer)//self.denom) + ' ' + str(abs(self.numer) % self.denom)+'/'+str(self.denom)
     
     def __add__(self, other):
         # adds two fractions together
@@ -25,7 +30,7 @@ class Fraction:
         if not other.__name__ == "Fraction":
 
             # raise an error
-            raise TypeError("Only Fractions allowed. You added" + other.__name__)
+            raise TypeError("Only Fractions allowed. You added" + type(other))
 
         # returns a fraction class that is the two fractions added together
         return Fraction(self.numer * other.denom + other.numer * self.denom, self.denom * other.denom).simplify()
@@ -78,18 +83,18 @@ class Fraction:
         # if the numerator is larger use the denominator as the max
         if abs(self.numer) > abs(self.denom):
 
-            primes = [True for _ in range(abs(self.denom) // 2 + 1)]
+            primes = [True for _ in range(abs(self.denom)+1)]
 
         # if the denominator is larger or they are the same size
         else:
 
-            primes = [True for _ in range(abs(self.numer) // 2 + 1)]
+            primes = [True for _ in range(abs(self.numer)+1)]
 
         # sieve the primes
 
         # loop thru the primes
-        p = 2
-        while p*p <= len(primes)-1:
+        p = 1
+        while p*p <= len(primes):
 
             # check if the number is a prime
             if primes[p]:
@@ -107,13 +112,12 @@ class Fraction:
         primes[1] = False
 
         # change primes from a list of T and F to a list of primes
-        # primes = [primes[primes.index(prime)] for prime in primes if primes[primes.index(prime)]]
 
         listprimes = []
         for p in range(len(primes)):
             if primes[p]:
                 listprimes.append(p)
-        print(listprimes)
+
         primes = listprimes
 
         # simplify the fraction using the primes list
@@ -129,7 +133,7 @@ class Fraction:
             # if the numer and denom arn't divisible by the prime
             else:
                 # delete the last prime
-                primes.pop()
+                primes.pop(-1)
 
         return self
 
@@ -137,9 +141,5 @@ class Fraction:
 # runs a test case
 if __name__ == '__main__':
 
-    x = Fraction(1, 2)
-    y = Fraction(3, 4)
-    print(x)
-    print(y)
-    z = x-y
-    print(str(z)+' = z')
+    a = Fraction(64,128)
+    print(a.simplify())
