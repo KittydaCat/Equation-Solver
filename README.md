@@ -4,4 +4,4 @@ To Do:
 
   Fractions:
 
-  Equation solver:
+  Expression Solver:
