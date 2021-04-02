@@ -1,7 +1,3 @@
-"""To DO
-Make 0 not print in repr for both whole and fraction
-Fix the repr func to work w/ negatives
-"""
 
 # create a class that can store a fraction and do operations to it
 
@@ -27,10 +23,10 @@ class Fraction:
         # adds two fractions together
 
         # check if the input is also a fraction class
-        if not other.__name__ == "Fraction":
+        if  type(other) is not Fraction:
 
             # raise an error
-            raise TypeError("Only Fractions allowed. You added" + type(other))
+            raise TypeError("Only Fractions allowed. You added" + str(type(other)))
 
         # returns a fraction class that is the two fractions added together
         return Fraction(self.numer * other.denom + other.numer * self.denom, self.denom * other.denom).simplify()
@@ -39,9 +35,9 @@ class Fraction:
         # subtracts two fractions
 
         # check if the input is also a fraction class
-        if not other.__name__ == "Fraction":
+        if type(other) is not Fraction:
             # raise an error
-            raise TypeError("Only Fractions allowed. You subtracted" + other.__name__)
+            raise TypeError("Only Fractions allowed. You subtracted" + str(type(other)))
 
         # returns a fraction class that is the two fractions subtracted
         return Fraction(self.numer * other.denom - other.numer * self.denom, self.denom * other.denom).simplify()
@@ -50,9 +46,9 @@ class Fraction:
         # multiply two fractions together
 
         # check if the input is also a fraction class
-        if not other.__name__ == "Fraction":
+        if  type(other) is not Fraction:
             # raise an error
-            raise TypeError("Only Fractions allowed. You multiplied" + other.__name__)
+            raise TypeError("Only Fractions allowed. You multiplied" + str(type(other)))
 
         # returns a fraction class that is the two fractions together
         return Fraction(self.numer * other.numer, self.denom * other.denom).simplify()
@@ -61,9 +57,9 @@ class Fraction:
         # multiply two fractions together
 
         # check if the input is also a fraction class
-        if not other.__name__ == "Fraction":
+        if type(other) is not Fraction:
             # raise an error
-            raise TypeError("Only Fractions allowed. You divided" + other.__name__)
+            raise TypeError("Only Fractions allowed. You divided" + str(type(other)))
 
         # returns a fraction class that is the two fractions together
         return Fraction(self.denom * other.numer, self.numer * other.denom).simplify()
@@ -137,6 +133,19 @@ class Fraction:
 
         return self
 
+
+def tofraction(numer):
+    
+    numer = float(numer)
+
+    denom = 1
+    
+    while not int(numer) == numer:
+
+        numer *= 10
+        denom *= 10
+
+    return Fraction(int(numer),int(denom)).simplify()
 
 # runs a test case
 if __name__ == '__main__':
