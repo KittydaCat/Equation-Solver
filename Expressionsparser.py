@@ -57,7 +57,7 @@ def equationparser(equation):
                 x += 1
 
             pequation.append(equationparser(equation[1:x]))
-            equation = equation[x:-1]
+            equation = equation[x:]
 
         equation = equation[1:]
 
