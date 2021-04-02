@@ -1,7 +1,7 @@
 
 # create a function that will turn a string into a parsed list
 
-def equationparser(equation):
+def exparser(equation):
 
     # create an empty list for the result
     pequation = []
@@ -56,7 +56,7 @@ def equationparser(equation):
 
                 x += 1
 
-            pequation.append(equationparser(equation[1:x]))
+            pequation.append(exparser(equation[1:x]))
             equation = equation[x:]
 
         equation = equation[1:]
@@ -69,4 +69,4 @@ def equationparser(equation):
 
 if __name__ == '__main__':
 
-    print(equationparser(input()))
+    print(exparser(input()))
