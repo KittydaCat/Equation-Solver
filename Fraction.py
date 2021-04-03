@@ -1,6 +1,4 @@
-
 # create a class that can store a fraction and do operations to it
-
 
 class Fraction:
 
@@ -18,12 +16,18 @@ class Fraction:
 
         if self.numer < 0:
             return '-' + str(abs(self.numer)//self.denom) + ' ' + str(abs(self.numer) % self.denom)+'/'+str(self.denom)
-    
+
+    def __invert__(self):
+
+        self.numer, self.denom = self.denom, self.numer
+
+        return self
+
     def __add__(self, other):
         # adds two fractions together
 
         # check if the input is also a fraction class
-        if  type(other) is not Fraction:
+        if type(other) is not Fraction:
 
             # raise an error
             raise TypeError("Only Fractions allowed. You added" + str(type(other)))
@@ -46,7 +50,7 @@ class Fraction:
         # multiply two fractions together
 
         # check if the input is also a fraction class
-        if  type(other) is not Fraction:
+        if type(other) is not Fraction:
             # raise an error
             raise TypeError("Only Fractions allowed. You multiplied" + str(type(other)))
 
@@ -145,10 +149,11 @@ def tofraction(numer):
         numer *= 10
         denom *= 10
 
-    return Fraction(int(numer),int(denom)).simplify()
+    return Fraction(int(numer), int(denom)).simplify()
+
 
 # runs a test case
 if __name__ == '__main__':
 
-    a = Fraction(64,128)
+    a = Fraction(64, 128)
     print(a.simplify())
