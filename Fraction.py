@@ -68,8 +68,12 @@ class Fraction:
         # returns a fraction class that is the two fractions together
         return Fraction(self.denom * other.numer, self.numer * other.denom).simplify()
 
+    def __pow__(self, other, modulo=None):
+
+        return Fraction(self.numer ^ (other.numer//other.denom), self.denom ^ (other.numer//other.denom))
+
     def transform(self, multiplyer):
-        # changes the numerator and denominator by a value miltiplyer
+        # changes the numerator and denominator by a value multiplyer
         self.numer = int(self.numer * multiplyer)
         self.denom = int(self.denom * multiplyer)
         return
