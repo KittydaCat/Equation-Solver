@@ -1,4 +1,5 @@
 import Fraction as frac
+import random as rand
 
 # create a function that will turn a string into a parsed list
 
@@ -64,7 +65,7 @@ def exparser(equation):
 
     if not num == '':
 
-        pequation.append(num)
+        pequation.append(frac.tofraction(num))
         
     return pequation
 
@@ -88,30 +89,32 @@ def equation_solver(equation):
     while '^' in equation:
 
         x = equation.index('^')
-        equation[x-1:x+2] = equation[x-1] ^ equation[x+1]
+        equation[x-1:x+2] = [equation[x-1] ^ equation[x+1]]
 
     while '/' in equation:
 
         x = equation.index('/')
-        equation[x-1:x+2] = equation[x-1] / equation[x+1]
+        equation[x-1:x+2] = [equation[x-1] / equation[x+1]]
 
     while '*' in equation:
 
         x = equation.index('*')
-        equation[x-1:x+2] = equation[x-1] * equation[x+1]
+        equation[x-1:x+2] = [equation[x-1] * equation[x+1]]
 
     while '-' in equation:
 
         x = equation.index('-')
-        equation[x-1:x+2] = equation[x-1] - equation[x+1]
+        equation[x-1:x+2] = [equation[x-1] - equation[x+1]]
 
     while '+' in equation:
 
         x = equation.index('+')
-        equation[x-1:x+2] = equation[x-1] + equation[x+1]
+        equation[x-1:x+2] = [equation[x-1] + equation[x+1]]
 
     return equation
 
 if __name__ == '__main__':
 
-    print(equation_solver(exparser('1+1')))
+    equation = '369549*7+5*68?64816-7-3857/992+821-3/8+620857154'
+
+    print(equation_solver(exparser(equation)))
