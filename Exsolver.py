@@ -66,7 +66,8 @@ def exparser(equation):
     if not num == '':
 
         pequation.append(frac.tofraction(num))
-        
+
+    print(pequation)
     return pequation
 
 
@@ -75,46 +76,53 @@ def equation_solver(equation):
     # loop thru the equation and solve all the parentheses
     for item in equation:
 
-        if type(item) == 'list':
+        if type(item) == type([]):
 
-            # if there is an implied multiplication
-            if equation[equation.index(item)-1].__name__ == 'Fraction':
+            # if there is an implied multiplication in front
+            if type(equation[equation.index(item)-1]) == type(frac.Fraction(1,1)) and not equation.index(item) == 0:
 
                 # add the * sign
-                equation.insert(equation.index(item)-1, '*')
+                equation.insert(equation.index(item), '*')
+
+            # if there is an implied multiplication in back
+            if not equation.index(item) == len(equation)-1 and type(equation[equation.index(item)+1]) == type(frac.Fraction(1,1)):
+
+                # add the * sign
+                equation.insert(equation.index(item)+1, '*')
 
             # insert the solved expression from the parens
-            equation.insert(equation_solver(item)[0], equation.pop(equation.index(item)))
+            equation.insert(equation.index(item), equation_solver(equation.pop(equation.index(item)))[0])
+            print(equation)
 
     while '^' in equation:
 
         x = equation.index('^')
-        equation[x-1:x+2] = [equation[x-1] ^ equation[x+1]]
-
+        equation[x-1:x+2] = [equation[x-1] ** equation[x+1]]
+        print(equation)
     while '/' in equation:
 
         x = equation.index('/')
         equation[x-1:x+2] = [equation[x-1] / equation[x+1]]
-
+        print(equation)
     while '*' in equation:
 
         x = equation.index('*')
         equation[x-1:x+2] = [equation[x-1] * equation[x+1]]
-
+        print(equation)
     while '-' in equation:
 
         x = equation.index('-')
         equation[x-1:x+2] = [equation[x-1] - equation[x+1]]
-
+        print(equation)
     while '+' in equation:
 
         x = equation.index('+')
         equation[x-1:x+2] = [equation[x-1] + equation[x+1]]
-
+        print(equation)
     return equation
 
 if __name__ == '__main__':
 
-    equation = '369549*7+5*68?64816-7-3857/992+821-3/8+620857154'
+    equation = '3695(49*7+5*686481*857/992+8)*21-3/8+62085^7154'
 
     print(equation_solver(exparser(equation)))
